@@ -1,5 +1,3 @@
-from utils import http
-
 import json
 from pygments import highlight
 from pygments.lexers import JsonLexer
