@@ -43,8 +43,8 @@ class Light(object):
     def on(self, light_id=None):
         if light_id:
             l = int(light_id )
-            result = self.bridge.set_light(l, 'on', True)
-            self.print('Turning on light %s: Status %s' % (l, result ))
+            self.action_on_light_by_id(l, 'on' )
+            self.print('Turning on light %s: Status ' % (l))
         else:
             self.print('Turning on all lights')
             for l in self.bridge.lights:
@@ -54,7 +54,7 @@ class Light(object):
         if light_id:
             l = int(light_id)
             self.print('Turning off light %s' % l)
-            self.bridge.set_light(l, 'off', True)
+            self.action_on_light_by_id(l, 'off' )
         else:
             self.print('Turning off all lights')
             for l in self.bridge.lights:
