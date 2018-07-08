@@ -26,34 +26,32 @@ class Light(object):
         """
         if action == 'on': self.bridge.set_light(light_id, 'on', True)
         else:  self.bridge.set_light(light_id, 'on', False)
+        self.print('Turning %s light %s' % (light_id , action))
 
         return
 
-    def action_on_group_of_lights(self, lights, action):
+    def _action_on_group_of_lights(self, lights, action):
         """
-        Action on one light by light_id.
+        Action on group of lights.
         """
         for l in lights:
-            if action == 'on':
-               self.bridge.set_light(l.light_id, 'on', True)
+            if action == 'on': self.bridge.set_light(l.light_id, 'on', True)
             else : self.bridge.set_light(l.light_id, 'on', False)
 
         return
 
-    def on(self, light_id=None):
-        if light_id:
-            l = int(light_id )
+    def on(self, id=None):
+        if id:
+            l = int(id )
             self._action_on_light_by_id(l, 'on' )
-            self.print('Turning on light %s: Status ' % (l))
         else:
             self.print('Turning on all lights')
-            for l in self.bridge.lights:
-                self._action_on_light_by_id(l.light_id, 'on' )
+            self._action_on_group_of_lights(self.bridge.lights, 'on' )
 
-    def off(self, light_id = None):
-        if light_id:
-            l = int(light_id)
-            self.print('Turning off light %s' % l)
+
+    def off(self, id = None):
+        if id:
+            l = int(id)
             self._action_on_light_by_id(l, 'off' )
         else:
             self.print('Turning off all lights')
