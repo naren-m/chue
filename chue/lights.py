@@ -20,7 +20,7 @@ class Light(object):
     def print(self, *args, **kwargs):
         print(*args, **kwargs)
 
-    def action_on_light_by_id(self, light_id, action):
+    def _action_on_light_by_id(self, light_id, action):
         """
         Action on one light by light_id.
         """
@@ -43,22 +43,22 @@ class Light(object):
     def on(self, light_id=None):
         if light_id:
             l = int(light_id )
-            self.action_on_light_by_id(l, 'on' )
+            self._action_on_light_by_id(l, 'on' )
             self.print('Turning on light %s: Status ' % (l))
         else:
             self.print('Turning on all lights')
             for l in self.bridge.lights:
-                self.action_on_light_by_id(l.light_id, 'on' )
+                self._action_on_light_by_id(l.light_id, 'on' )
 
     def off(self, light_id = None):
         if light_id:
             l = int(light_id)
             self.print('Turning off light %s' % l)
-            self.action_on_light_by_id(l, 'off' )
+            self._action_on_light_by_id(l, 'off' )
         else:
             self.print('Turning off all lights')
             for l in self.bridge.lights:
-                self.action_on_light_by_id(l.light_id, 'off' )
+                self._action_on_light_by_id(l.light_id, 'off' )
 
 
 if __name__ == '__main__':
