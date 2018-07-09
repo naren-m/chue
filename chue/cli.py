@@ -1,13 +1,8 @@
-#!/usr/local/bin/python3
-"""
-CLI module to control philips hue lights.
-"""
-import click
 import phue
+import fire
 
-import utils
 
-BRIDGE_IP = "10.0.1.2"
+BRIDGE_IP = "10.0.1.47"
 
 
 def action_on_light_by_id(bridge, light_id, action):
@@ -46,12 +41,8 @@ def get_state(state_bool):
     return state
 
 
-@click.group()
-def main():
-    pass
 
-
-@main.command(name="lights")
+# @main.command(name="lights")
 @click.option('--id', help='ID of light.')
 @click.option('--all', help='All lights.', default=False, is_flag=True)
 @click.option(

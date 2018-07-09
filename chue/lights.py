@@ -34,9 +34,10 @@ class Light(object):
         """
         Action on group of lights.
         """
+        self.print('Turning %s all lights' % action)
         for l in lights:
-            if action == 'on': self.bridge.set_light(l.light_id, 'on', True)
-            else : self.bridge.set_light(l.light_id, 'on', False)
+            if action == 'on': self._action_on_light_by_id(l.light_id, 'on' )
+            else : self._action_on_light_by_id(l.light_id, 'off' )
 
         return
 
@@ -45,7 +46,6 @@ class Light(object):
             l = int(id )
             self._action_on_light_by_id(l, 'on' )
         else:
-            self.print('Turning on all lights')
             self._action_on_group_of_lights(self.bridge.lights, 'on' )
 
 
