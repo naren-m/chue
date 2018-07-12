@@ -7,26 +7,23 @@ import fire
 
 
 BRIDGE_IP = "10.0.1.47"
-# BRIDGE_IP = "10.0.1.6"
 
 class Light(object):
 
     def __init__(self):
-        self.bridge = phue.Bridge(BRIDGE_IP)
-        self.bridge.connect()
-        phue.logger.propagate = False
-        phue.logger.disabled = False
+        self._bridge = phue.Bridge(BRIDGE_IP)
+        self._bridge.connect()
 
-    def print(self, *args, **kwargs):
-        print(*args, **kwargs)
+    def _log(self, *args, **kwargs):
+        print(args, kwargs)
 
     def _action_on_light_by_id(self, light_id, action):
         """
         Action on one light by light_id.
         """
-        if action == 'on': self.bridge.set_light(light_id, 'on', True)
-        else:  self.bridge.set_light(light_id, 'on', False)
-        self.print('Turning %s light %s' % (light_id , action))
+        if action == 'on': self._bridge.set_light(light_id, 'on', True)
+        else:  self._bridge.set_light(light_id, 'on', False)
+        self._log('Turning %s light %s' % (action, light_id))
 
         return
 
@@ -34,7 +31,6 @@ class Light(object):
         """
         Action on group of lights.
         """
-        self.print('Turning %s all lights' % action)
         for l in lights:
             if action == 'on': self._action_on_light_by_id(l.light_id, 'on' )
             else : self._action_on_light_by_id(l.light_id, 'off' )
@@ -46,7 +42,7 @@ class Light(object):
             l = int(id )
             self._action_on_light_by_id(l, 'on' )
         else:
-            self._action_on_group_of_lights(self.bridge.lights, 'on' )
+            self._action_on_group_of_lights(self._bridge.lights, 'on' )
 
 
     def off(self, id = None):
@@ -54,9 +50,13 @@ class Light(object):
             l = int(id)
             self._action_on_light_by_id(l, 'off' )
         else:
-            self.print('Turning off all lights')
-            for l in self.bridge.lights:
+            for l in self._bridge.lights:
                 self._action_on_light_by_id(l.light_id, 'off' )
+
+    def status(self, id=None):
+        if id:
+            self.brid
+
 
 
 if __name__ == '__main__':
