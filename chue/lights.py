@@ -6,13 +6,13 @@ import phue
 import fire
 
 
-BRIDGE_IP = "10.0.1.47"
+# BRIDGE_IP = "10.0.1.47"
 
 class Light(object):
 
     def __init__(self):
-        self._bridge = phue.Bridge(BRIDGE_IP)
-        self._bridge.connect()
+        self._bridge = None
+        # self._bridge.connect()
 
     def _log(self, *args, **kwargs):
         print(args, kwargs)
@@ -55,8 +55,10 @@ class Light(object):
 
     def status(self, id=None):
         if id:
-            self.brid
+            self._log(self._bridge[id].on)
 
+    def connect(ip=None, username=None, config_file_path=None):
+        self._bridge = phue.Bridge(ip, username, config_file_path)
 
 
 if __name__ == '__main__':
