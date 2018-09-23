@@ -12,10 +12,17 @@ class Light(object):
 
     def __init__(self):
         self._bridge = None
-        # self._bridge.connect()
+        self.connect()
 
     def _log(self, *args, **kwargs):
         print(args, kwargs)
+
+    def connect(self, ip=None, username=None, config_file_path=None):
+        ip = '10.0.1.6'
+        username='newdeveloper'
+        self._bridge = phue.Bridge(ip=ip, username=username, config_file_path = config_file_path)
+        self._bridge.connect()
+        self._log(self._bridge.config_file_path)
 
     def _action_on_light_by_id(self, light_id, action):
         """
@@ -57,8 +64,6 @@ class Light(object):
         if id:
             self._log(self._bridge[id].on)
 
-    def connect(ip=None, username=None, config_file_path=None):
-        self._bridge = phue.Bridge(ip, username, config_file_path)
 
 
 if __name__ == '__main__':
